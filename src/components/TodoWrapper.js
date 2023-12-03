@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid'
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
@@ -17,7 +18,6 @@ const TodoWrapper = () => {
     }
 
     const toggleComplete = (id) => {
-        console.log(id)
         setTodo(todo.map(todo => {
             return (
                 todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
@@ -35,7 +35,7 @@ const TodoWrapper = () => {
 
     const editTask = (task, id) => {
         setTodo(todo.map(todo => (
-            todo.id === id ? {...todo, task, isEdit: !todo.isEdit} : todo
+            todo.id === id ? { ...todo, task, isEdit: !todo.isEdit } : todo
         )))
     }
 
@@ -46,12 +46,18 @@ const TodoWrapper = () => {
                     <h3 className="wrapper__title">All Tasks</h3>
                     <TodoForm addTodo={addTodo} />
                     {
-                        todo.map(todo => 
-                            todo.isEdit ? 
-                            <EditTodoForm editTodo={editTask} todo={todo} key={todo.id}/>
-                            : 
-                            <Todo todo={todo} key={todo.id} deleteTodo={deleteTodo} editTodo={editTodo} toggleComplete={toggleComplete} /> 
-                        )
+                        <TransitionGroup component={null}>
+                            {
+                                todo.map(todo =>
+                                    todo.isEdit ?
+                                        <EditTodoForm editTodo={editTask} key={todo.id} todo={todo} />
+                                        :
+                                        <CSSTransition timeout={1000} key={todo.id} classNames="wrapper__box">
+                                            <Todo todo={todo} deleteTodo={deleteTodo} editTodo={editTodo} toggleComplete={toggleComplete} />
+                                        </CSSTransition>
+                                )
+                            }
+                        </TransitionGroup>
                     }
                 </div>
             </div>

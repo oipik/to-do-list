@@ -8,7 +8,6 @@ const EditTodoForm = ({todo, editTodo}) => {
         e.preventDefault();
 
         editTodo(value, todo.id);
-        // setValue('');
     }
 
     return (

@@ -6,7 +6,7 @@ const Todo = ({ todo, deleteTodo, editTodo, toggleComplete }) => {
     return (
         <div className="wrapper__box">
             <div className="wrapper__box--inner">
-                <input className="wrapper__checkbox" type="checkbox" onClick={() => toggleComplete(todo.id)}/>
+                <input className="wrapper__checkbox" type="checkbox" onClick={() => toggleComplete(todo.id)} />
                 <p className={`wrapper__task ${todo.isCompleted ? "completed" : "incompleted"}`}>{todo.task}</p>
             </div>
             <div className="wrapper__icons">
