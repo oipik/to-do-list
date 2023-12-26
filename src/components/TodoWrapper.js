@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid'
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
@@ -7,10 +7,19 @@ import Todo from "./Todo";
 import EditTodoForm from "./EditTodoForm";
 
 const TodoWrapper = () => {
-    const [todo, setTodo] = useState([]);
+    // const [todo, setTodo] = useState([]);
+    const [todo, setTodo] = useState(() => {
+        const savedData = JSON.parse(localStorage.getItem('todo'));
+        return savedData || [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem('todo', JSON.stringify(todo));
+    }, [todo])
 
     const addTodo = (task) => {
         setTodo([...todo, { id: uuidv4(), task, isCompleted: false, isEdit: false }]);
+        localStorage.setItem('todo', JSON.stringify(todo));
     }
 
     const deleteTodo = (id) => {
