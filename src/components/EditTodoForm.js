@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { editTask } from '../reducer';
+import { useDispatch } from "react-redux";
 
-const EditTodoForm = ({todo, editTodo}) => {
+const EditTodoForm = ({todo}) => {
 
     const [value, setValue] = useState(todo.task);
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        editTodo(value, todo.id);
+        // editTodo(value, todo.id);
+        const id = todo.id
+        dispatch(editTask({value, id}))
     }
 
     return (
