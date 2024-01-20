@@ -1,59 +1,18 @@
-import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from 'uuid'
+import { useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { useSelector, useDispatch } from "react-redux";
-import { addTodo, deleteTodo, toggleComplete, editTodo } from "../reducer";
+import { useSelector } from "react-redux";
 
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
 import EditTodoForm from "./EditTodoForm";
 
 const TodoWrapper = () => {
-
+    
     const todos = useSelector(state => state.todos);
-    const dispatch = useDispatch();
-
-    console.log(todos);
-
-    const [todo, setTodo] = useState(() => {
-        const savedData = JSON.parse(localStorage.getItem('todo'));
-        return savedData || [];
-    });
 
     useEffect(() => {
-        localStorage.setItem('todo', JSON.stringify(todo));
-    }, [todo])
-
-    // const addTodo = (task) => {
-    //     setTodo([...todo, { id: uuidv4(), task, isCompleted: false, isEdit: false }]);
-    //     localStorage.setItem('todo', JSON.stringify(todo));
-    // }
-
-    // const deleteTodo = (id) => {
-    //     setTodo(todo.filter(todo => todo.id !== id));
-    // }
-
-    // const toggleComplete = (id) => {
-    //     setTodo(todo.map(todo => {
-    //         return (
-    //             todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
-    //         )
-    //     }))
-    // }
-
-    // const editTodo = (id) => {
-    //     setTodo(todo.map(todo => {
-    //         return (
-    //             todo.id === id ? { ...todo, isEdit: !todo.isEdit } : todo
-    //         )
-    //     }))
-    // }
-
-    // const editTask = (task, id) => {
-    //     setTodo(todo.map(todo => (
-    //         todo.id === id ? { ...todo, task, isEdit: !todo.isEdit } : todo
-    //     )))
-    // }
+        localStorage.setItem('todo', JSON.stringify(todos));
+    }, [todos])
 
     return (
         <section className="wrapper">

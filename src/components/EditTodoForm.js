@@ -10,8 +10,7 @@ const EditTodoForm = ({todo}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // editTodo(value, todo.id);
-        const id = todo.id
+        const id = todo.id;
         dispatch(editTask({value, id}))
     }
 

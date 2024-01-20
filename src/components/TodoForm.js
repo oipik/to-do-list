@@ -11,10 +11,9 @@ const TodoForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // addTodo(value);
         const task = {id: uuidv4(), task: value, isCompleted: false, isEdit: false};
         dispatch(addTodo(task));
-        
+
         setValue('');
     }
 
