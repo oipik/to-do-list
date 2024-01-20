@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { editTask } from '../reducer';
+import { editTask } from '../reducer/todosSlice';
 import { useDispatch } from "react-redux";
 
 const EditTodoForm = ({todo}) => {
@@ -9,9 +9,8 @@ const EditTodoForm = ({todo}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        const id = todo.id;
-        dispatch(editTask({value, id}))
+        
+        dispatch(editTask({id: todo.id, task: value, isEdit: !todo.isEdit}))
     }
 
     return (

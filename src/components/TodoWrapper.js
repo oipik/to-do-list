@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { useSelector } from "react-redux";
+import { selectAll } from "../reducer/todosSlice";
 
 import TodoForm from "./TodoForm";
 import Todo from "./Todo";
@@ -8,7 +9,7 @@ import EditTodoForm from "./EditTodoForm";
 
 const TodoWrapper = () => {
     
-    const todos = useSelector(state => state.todos);
+    const todos = useSelector(selectAll);
 
     useEffect(() => {
         localStorage.setItem('todo', JSON.stringify(todos));
@@ -27,7 +28,7 @@ const TodoWrapper = () => {
                                     todo.isEdit ?
                                         <EditTodoForm key={todo.id} todo={todo} />
                                         :
-                                        <CSSTransition timeout={1000} key={todo.id} classNames="wrapper__box">
+                                        <CSSTransition timeout={500} key={todo.id} classNames="wrapper__box">
                                             <Todo key={todo.id} todo={todo} />
                                         </CSSTransition>
                                 )
