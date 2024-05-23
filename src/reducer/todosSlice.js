@@ -1,7 +1,7 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 const json = JSON.parse(localStorage.getItem('todo'));
-const state = json !== undefined ? json : [];
+const state = json !== null ? json : [];
 
 const todoAdapter = createEntityAdapter();
 const initial = todoAdapter.getInitialState();
